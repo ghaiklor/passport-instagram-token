@@ -1,6 +1,6 @@
 {
   "name": "passport-instagram-token",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Passport strategy for authenticating with Instagram via OAuth2 access tokens",
   "main": "index.js",
   "scripts": {
