@@ -1,6 +1,13 @@
 # passport-instagram-token
 
-![Build Status](https://img.shields.io/travis/ghaiklor/passport-instagram-token.svg) ![Coverage](https://img.shields.io/coveralls/ghaiklor/passport-instagram-token.svg) ![Downloads](https://img.shields.io/npm/dm/passport-instagram-token.svg) ![npm version](https://img.shields.io/npm/v/passport-instagram-token.svg) ![dependencies](https://img.shields.io/david/ghaiklor/passport-instagram-token.svg) ![dev dependencies](https://img.shields.io/david/dev/ghaiklor/passport-instagram-token.svg) ![License](https://img.shields.io/npm/l/passport-instagram-token.svg)
+![Build Status](https://img.shields.io/travis/ghaiklor/passport-instagram-token.svg)
+![Coverage](https://img.shields.io/coveralls/ghaiklor/passport-instagram-token.svg)
+![Downloads](https://img.shields.io/npm/dm/passport-instagram-token.svg)
+![Downloads](https://img.shields.io/npm/dt/passport-instagram-token.svg)
+![npm version](https://img.shields.io/npm/v/passport-instagram-token.svg)
+![dependencies](https://img.shields.io/david/ghaiklor/passport-instagram-token.svg)
+![dev dependencies](https://img.shields.io/david/dev/ghaiklor/passport-instagram-token.svg)
+![License](https://img.shields.io/npm/l/passport-instagram-token.svg)
 
 [Passport](http://passportjs.org/) strategy for authenticating with Instagram access tokens using the OAuth 2.0 API.
 
@@ -57,7 +64,11 @@ module.exports = {
 };
 ```
 
-The POST request to this route should include a JSON object with the keys `access_token` and optionally, `refresh_token` set to the credentials you receive from Instagram.
+The request to this route should include a GET or POST data with the keys `access_token` and optionally, `refresh_token` set to the credentials you receive from Instagram.
+
+```
+GET /auth/instagram?access_token=<TOKEN>
+```
 
 ## Issues
 
