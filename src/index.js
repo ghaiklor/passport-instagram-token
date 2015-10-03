@@ -12,21 +12,17 @@ import { OAuth2Strategy, InternalOAuthError } from 'passport-oauth';
  * - clientSecret      Secret used to establish ownership of the consumer key
  * - passReqToCallback If need, pass req to verify callback
  *
- * Example:
- *     passport.use(new InstagramTokenStrategy({
- *           clientID: '123-456-789',
- *           clientSecret: 'shhh-its-a-secret',
- *           passReqToCallback: true
- *       }, function(req, accessToken, refreshToken, profile, next) {
- *              User.findOrCreate(..., function (error, user) {
- *                  next(error, user);
- *              });
- *          }
- *       ));
- *
  * @param {Object} _options
  * @param {Function} _verify
- * @constructor
+ * @example
+ * passport.use(new InstagramTokenStrategy({
+ *   clientID: '123456789',
+ *   clientSecret: 'shhh-its-a-secret'
+ * }), function(accessToken, refreshToken, profile, next) {
+ *   User.findOrCreate({instagramId: profile.id}, function(error, user) {
+ *     next(error, user);
+ *   })
+ * })
  */
 export default class InstagramTokenStrategy extends OAuth2Strategy {
   constructor(_options, _verify) {

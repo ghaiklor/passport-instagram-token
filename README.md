@@ -28,6 +28,8 @@ The Instagram authentication strategy authenticates users using a Instagram acco
 The strategy requires a `verify` callback, which accepts these credentials and calls `next` providing a user, as well as `options` specifying a app ID and app secret.
 
 ```javascript
+var InstagramTokenStrategy = require('passport-instagram-token');
+
 passport.use(new InstagramTokenStrategy({
     clientID: INSTAGRAM_CLIENT_ID,
     clientSecret: INSTAGRAM_CLIENT_SECRET,
