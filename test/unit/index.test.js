@@ -189,4 +189,36 @@ describe('InstagramTokenStrategy:userProfile', () => {
       done();
     });
   });
+
+  it('Should properly make request with enableProof', done => {
+    let strategy = new InstagramTokenStrategy({
+      clientID: '123',
+      clientSecret: '123',
+      enableProof: true
+    }, BLANK_FUNCTION);
+
+    sinon.stub(strategy._oauth2, 'get', (url, accessToken, done) => done(null, fakeProfile, null));
+
+    strategy.userProfile('accessToken', (error, profile) => {
+      assert.equal(strategy._oauth2.get.getCall(0).args[0], 'https://api.instagram.com/v1/users/self?sig=7393bd6533bae39c66e720280eeb57298cfd3b7649ff63eaa76d02da70ad8d45');
+      strategy._oauth2.get.restore();
+      done();
+    });
+  });
+
+  it('Should properly make request with enableProof disabled', done => {
+    let strategy = new InstagramTokenStrategy({
+      clientID: '123',
+      clientSecret: '123',
+      enableProof: false
+    }, BLANK_FUNCTION);
+
+    sinon.stub(strategy._oauth2, 'get', (url, accessToken, done) => done(null, fakeProfile, null));
+
+    strategy.userProfile('accessToken', (error, profile) => {
+      assert.equal(strategy._oauth2.get.getCall(0).args[0], 'https://api.instagram.com/v1/users/self');
+      strategy._oauth2.get.restore();
+      done();
+    });
+  });
 });
