@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { OAuth2Strategy, InternalOAuthError } from 'passport-oauth';
 
 /**
@@ -38,6 +39,8 @@ export default class InstagramTokenStrategy extends OAuth2Strategy {
     this._accessTokenField = options.accessTokenField || 'access_token';
     this._refreshTokenField = options.refreshTokenField || 'refresh_token';
     this._profileURL = options.profileURL || 'https://api.instagram.com/v1/users/self';
+    this._clientSecret = options.clientSecret;
+    this._enableProof = typeof options.enableProof === 'boolean' ? options.enableProof : true;
     this._passReqToCallback = options.passReqToCallback;
   }
 
@@ -77,7 +80,16 @@ export default class InstagramTokenStrategy extends OAuth2Strategy {
    * @param {Function} done
    */
   userProfile(accessToken, done) {
-    this._oauth2.get(this._profileURL, accessToken, (error, body, res) => {
+    let url = this._profileURL;
+
+    if (this._enableProof) {
+      // For further details, refer to https://www.instagram.com/developer/secure-api-requests/
+      let token = `/users/self|access_token=${accessToken}`;
+      let proof = crypto.createHmac('sha256', this._clientSecret).update(token).digest('hex');
+      url = `${url}?sig=${encodeURIComponent(proof)}`;
+    }
+
+    this._oauth2.get(url, accessToken, (error, body, res) => {
       if (error) {
         try {
           let errorJSON = JSON.parse(error.data);
