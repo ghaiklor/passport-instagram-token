@@ -8,6 +8,7 @@ notifications:
 node_js:
   - stable
   - 4
+  - 0.12
 before_script:
   - npm prune
 after_success:
