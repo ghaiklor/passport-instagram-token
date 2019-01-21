@@ -40,7 +40,7 @@
     "cz-conventional-changelog": "2.1.0",
     "isparta": "4.1.1",
     "mocha": "5.2.0",
-    "semantic-release": "15.9.1",
+    "semantic-release": "15.10.6",
     "sinon": "7.2.3"
   },
   "config": {
