@@ -1,4 +1,4 @@
-export default JSON.stringify({
+export default {
   "data": {
     "id": "1234567",
     "username": "ghaiklor",
@@ -14,4 +14,4 @@ export default JSON.stringify({
       "followed_by": 3410
     }
   }
-})
+}

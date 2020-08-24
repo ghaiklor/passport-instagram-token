@@ -1,45 +1,44 @@
-# passport-instagram-token
+# passport-apple-token
 
-![Build Status](https://img.shields.io/travis/ghaiklor/passport-instagram-token.svg)
-![Coverage](https://img.shields.io/coveralls/ghaiklor/passport-instagram-token.svg)
+![Build Status](https://img.shields.io/travis/mrbatista/passport-apple-token.svg)
+![Coverage](https://img.shields.io/coveralls/mrbatista/passport-apple-token.svg)
 
-![Downloads](https://img.shields.io/npm/dm/passport-instagram-token.svg)
-![Downloads](https://img.shields.io/npm/dt/passport-instagram-token.svg)
-![npm version](https://img.shields.io/npm/v/passport-instagram-token.svg)
-![License](https://img.shields.io/npm/l/passport-instagram-token.svg)
+![Downloads](https://img.shields.io/npm/dm/passport-apple-token.svg)
+![Downloads](https://img.shields.io/npm/dt/passport-apple-token.svg)
+![npm version](https://img.shields.io/npm/v/passport-apple-token.svg)
+![License](https://img.shields.io/npm/l/passport-apple-token.svg)
 
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-![dependencies](https://img.shields.io/david/ghaiklor/passport-instagram-token.svg)
-![dev dependencies](https://img.shields.io/david/dev/ghaiklor/passport-instagram-token.svg)
+![dependencies](https://img.shields.io/david/mrbatista/passport-apple-token.svg)
+![dev dependencies](https://img.shields.io/david/dev/mrbatista/passport-apple-token.svg)
 
-[Passport](http://passportjs.org/) strategy for authenticating with Instagram access tokens using the OAuth 2.0 API.
+[Passport](http://passportjs.org/) strategy for authenticating with Apple identity token.
 
-This module lets you authenticate using Instagram in your Node.js applications.
-By plugging into Passport, Instagram authentication can be easily and unobtrusively integrated into any application or framework that supports [Connect](http://www.senchalabs.org/connect/)-style middleware, including [Express](http://expressjs.com/).
+This module lets you authenticate using Apple in your Node.js applications.
+By plugging into Passport, Apple authentication can be easily and unobtrusively integrated into any application or framework that supports [Connect](http://www.senchalabs.org/connect/)-style middleware, including [Express](http://expressjs.com/).
 
 ## Installation
 
 ```shell
-npm install passport-instagram-token
+npm install @mrbatista/passport-apple-token
 ```
 
 ## Usage
 
 ### Configure Strategy
 
-The Instagram authentication strategy authenticates users using a Instagram account and OAuth 2.0 tokens.
-The strategy requires a `verify` callback, which accepts these credentials and calls `next` providing a user, as well as `options` specifying a app ID and app secret.
+The Apple authentication strategy authenticates users using a Apple account and identity token.
+The strategy requires a `verify` callback, which accepts these credentials and calls `next` providing a user, as well as `options` specifying a client ID.
 
 ```javascript
-var InstagramTokenStrategy = require('passport-instagram-token');
+var AppleTokenStrategy = require('@mrbatista/passport-apple-token');
 
-passport.use(new InstagramTokenStrategy({
-    clientID: INSTAGRAM_CLIENT_ID,
-    clientSecret: INSTAGRAM_CLIENT_SECRET,
+passport.use(new AppleTokenStrategy({
+    clientID: APPLE_CLIENT_ID,
     passReqToCallback: true
-}, function(req, accessToken, refreshToken, profile, next) {
-    User.findOrCreate({'instagram.id': profile.id}, function(error, user) {
+}, function(req, undefined, undefined, profile, next) {
+    User.findOrCreate({'apple.id': profile.id}, function(error, user) {
         return next(error, user);
     });
 }));
@@ -47,12 +46,12 @@ passport.use(new InstagramTokenStrategy({
 
 ### Authenticate Requests
 
-Use `passport.authenticate()`, specifying the `instagram-token` strategy, to authenticate requests.
+Use `passport.authenticate()`, specifying the `apple-token` strategy, to authenticate requests.
 
 For example, as route middleware in an [Express](http://expressjs.com/) application:
 
 ```javascript
-app.get('/auth/instagram', passport.authenticate('instagram-token'));
+app.get('/auth/apple/token', passport.authenticate('apple-token'));
 ```
 
 Or if you are using Sails framework:
@@ -60,8 +59,8 @@ Or if you are using Sails framework:
 ```javascript
 // AuthController.js
 module.exports = {
-    instagram: function(req, res) {
-        passport.authenticate('instagram-token', function(error, user, info) {
+    apple: function(req, res) {
+        passport.authenticate('apple-token', function(error, user, info) {
             if (error) return res.serverError(error);
             if (info) return res.unauthorized(info);
             return res.ok(user);
@@ -70,10 +69,10 @@ module.exports = {
 };
 ```
 
-The request to this route should include a GET or POST data with the keys `access_token` and optionally, `refresh_token` set to the credentials you receive from Instagram.
+The request to this route should include a GET or POST data with the keys `id_token` set to the credentials you receive from Apple.
 
 ```
-GET /auth/instagram?access_token=<TOKEN>
+GET /auth/apple/token?id_token=<TOKEN>
 ```
 
 ## Issues
